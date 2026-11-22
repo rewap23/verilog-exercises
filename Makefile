@@ -2,21 +2,27 @@ IVERILOG ?= iverilog
 VVP ?= vvp
 VFLAGS ?= -g2012
 
-.PHONY: all fourmux twomux clean
+.PHONY: all mux_2_to_1 mux_4_to_1 mux_256_to_1 clean
 
-all: fourmux twomux
+all: mux_2_to_1 mux_4_to_1 mux_256_to_1
 
-fourmux: fourmux.vvp
+mux_2_to_1: mux_2_to_1.vvp
 	$(VVP) $<
 
-fourmux.vvp: four-one-mux/four_one_mux.v
+mux_2_to_1.vvp: mux_2_to_1/mux_2_to_1.v
 	$(IVERILOG) $(VFLAGS) -o $@ $<
 
-twomux: twomux.vvp
+mux_4_to_1: mux_4_to_1.vvp
 	$(VVP) $<
 
-twomux.vvp: two-one-mux/two_one_mux.v
+mux_4_to_1.vvp: mux_4_to_1/mux_4_to_1.v
+	$(IVERILOG) $(VFLAGS) -o $@ $<
+
+mux_256_to_1: mux_256_to_1.vvp
+	$(VVP) $<
+
+mux_256_to_1.vvp: mux_256_to_1/mux_256_to_1.v
 	$(IVERILOG) $(VFLAGS) -o $@ $<
 
 clean:
-	rm -f fourmux.vvp twomux.vvp
+	rm -f fourmux.vvp twomux.vvp mux_2_to_1.vvp mux_4_to_1.vvp mux_256_to_1.vvp
